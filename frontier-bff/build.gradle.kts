@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
@@ -9,6 +7,7 @@ allprojects {
 
     repositories {
         mavenCentral()
+        mavenLocal()
     }
 
     dependencies {
@@ -16,7 +15,7 @@ allprojects {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     }
 
-    tasks.withType<KotlinCompile> {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
             jvmTarget = "11"
@@ -41,6 +40,8 @@ plugins {
 }
 
 dependencies {
+    implementation("com.github.anddd7:shared-common:0.0.1-SNAPSHOT")
+
     /** core */
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
