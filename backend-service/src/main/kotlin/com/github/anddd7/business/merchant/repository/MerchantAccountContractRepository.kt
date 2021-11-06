@@ -6,6 +6,7 @@ import java.time.Instant
 @Repository
 interface MerchantAccountContractRepository {
     fun save(contract: MerchantAccountContract): MerchantAccountContract
+    fun get(id: String): MerchantAccountContract
 }
 
 data class MerchantAccountContract(
