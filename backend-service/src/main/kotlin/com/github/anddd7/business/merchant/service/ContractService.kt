@@ -12,7 +12,7 @@ class ContractService(
     private val proposalService: ProposalService,
     private val contractService: MerchantAccountContractRepository,
 ) {
-    fun request(request: ContractRequest): ContractConfirmationResponse {
+    fun requestAndConfirm(request: ContractRequest): ContractConfirmationResponse {
         val proposalId = request
             .run { ProposalRequest(userId, declarationVersion) }
             .let { proposalService.requestAndConfirm(it) }

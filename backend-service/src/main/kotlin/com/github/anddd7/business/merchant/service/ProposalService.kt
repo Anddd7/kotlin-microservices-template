@@ -3,8 +3,6 @@ package com.github.anddd7.business.merchant.service
 import com.github.anddd7.business.common.Confirmation
 import com.github.anddd7.business.common.Query
 import com.github.anddd7.business.common.Request
-import com.github.anddd7.business.common.RequestAndConfirmService
-import com.github.anddd7.business.common.ToConfirmation
 import com.github.anddd7.business.merchant.repository.Declaration
 import com.github.anddd7.business.merchant.repository.DeclarationRepository
 import com.github.anddd7.business.merchant.repository.MerchantAccountProposal
@@ -16,21 +14,16 @@ import java.time.Instant
 class ProposalService(
     private val declarationRepository: DeclarationRepository,
     private val proposalRepository: MerchantAccountProposalRepository
-) : RequestAndConfirmService<
-    ProposalRequest,
-    ProposalRequest,
-    ProposalConfirmation,
-    ProposalConfirmationResponse
-    > {
+) {
     fun query(request: ProposalQuery) =
         ProposalQueryResult(declarationRepository.latest())
 
-    override fun request(request: ProposalRequest) = request
-    override fun confirm(confirmation: ProposalConfirmation): ProposalConfirmationResponse {
-        return confirmation.run { MerchantAccountProposal(userId, declarationVersion, createdAt, expiredAt) }
+    fun requestAndConfirm(request: ProposalRequest): ProposalConfirmationResponse =
+        request
+            .run { ProposalConfirmation(userId, declarationVersion, createdAt) }
+            .run { MerchantAccountProposal(userId, declarationVersion, createdAt, expiredAt) }
             .let { proposalRepository.save(it) }
             .run { ProposalConfirmationResponse(id) }
-    }
 
     // retrieve request/confirmation
     private fun getRequest(proposalId: String) =
@@ -52,9 +45,7 @@ data class ProposalRequest(
     val userId: String,
     val declarationVersion: String,
     override val createdAt: Instant = Instant.now()
-) : Request, ToConfirmation<ProposalConfirmation> {
-    override fun toConfirmation() = ProposalConfirmation(userId, declarationVersion, createdAt)
-}
+) : Request
 
 data class ProposalConfirmation(
     val userId: String,

@@ -19,7 +19,7 @@ class MerchantAccountApi(
     fun viewProposal() = proposalService.query(ProposalQuery())
 
     @PostMapping("/contract")
-    fun signContract(request: ContractRequest) = contractService.request(request)
+    fun signContract(request: ContractRequest) = contractService.requestAndConfirm(request)
 }
 
 
