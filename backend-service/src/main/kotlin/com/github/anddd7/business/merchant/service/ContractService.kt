@@ -2,15 +2,15 @@ package com.github.anddd7.business.merchant.service
 
 import com.github.anddd7.business.common.Confirmation
 import com.github.anddd7.business.common.Request
-import com.github.anddd7.business.merchant.repository.MerchantAccountContract
-import com.github.anddd7.business.merchant.repository.MerchantAccountContractRepository
+import com.github.anddd7.business.merchant.repository.MerchantAccount
+import com.github.anddd7.business.merchant.repository.MerchantAccountRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
 @Service
 class ContractService(
     private val proposalService: ProposalService,
-    private val contractService: MerchantAccountContractRepository,
+    private val contractService: MerchantAccountRepository,
 ) {
     fun request(request: ContractRequest): ContractRequestResponse {
         val proposalId = request
@@ -19,9 +19,9 @@ class ContractService(
             .proposalId
 
         return request
-            .run { MerchantAccountContract(userId, fullName, identityNumber, proposalId, createdAt, Instant.MAX) }
+            .run { MerchantAccount(userId, fullName, identityNumber, proposalId, createdAt, Instant.MAX) }
             .let { contractService.save(it) }
-            .run { ContractRequestResponse(contractId) }
+            .run { ContractRequestResponse(id) }
     }
 
     fun confirm(contractId: String, confirmation: ContractConfirmation): ContractConfirmationResponse {

@@ -4,17 +4,19 @@ import org.springframework.stereotype.Repository
 import java.time.Instant
 
 @Repository
-interface MerchantAccountContractRepository {
-    fun save(contract: MerchantAccountContract): MerchantAccountContract
-    fun get(id: String): MerchantAccountContract
+interface MerchantAccountRepository {
+    fun save(entity: MerchantAccount): MerchantAccount
+    fun get(id: String): MerchantAccount
 }
 
-data class MerchantAccountContract(
+data class MerchantAccount(
     val userId: String,
     val fullName: String,
     val identityNumber: String,
     val proposalId: String,
     val createdAt: Instant,
     val expiredAt: Instant,
-    val contractId: String = "",
-)
+    private val id: String = "",
+) {
+    val contractId: String = id
+}

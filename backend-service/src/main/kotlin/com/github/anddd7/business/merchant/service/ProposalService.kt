@@ -5,15 +5,15 @@ import com.github.anddd7.business.common.Query
 import com.github.anddd7.business.common.Request
 import com.github.anddd7.business.merchant.repository.Declaration
 import com.github.anddd7.business.merchant.repository.DeclarationRepository
-import com.github.anddd7.business.merchant.repository.MerchantAccountProposal
-import com.github.anddd7.business.merchant.repository.MerchantAccountProposalRepository
+import com.github.anddd7.business.merchant.repository.MerchantAcceptedDeclaration
+import com.github.anddd7.business.merchant.repository.MerchantAcceptedDeclarationRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
 @Service
 class ProposalService(
     private val declarationRepository: DeclarationRepository,
-    private val proposalRepository: MerchantAccountProposalRepository
+    private val proposalRepository: MerchantAcceptedDeclarationRepository
 ) {
     fun query(request: ProposalQuery) =
         ProposalQueryResult(declarationRepository.latest())
@@ -21,7 +21,7 @@ class ProposalService(
     fun requestAndConfirm(request: ProposalRequest): ProposalConfirmationResponse =
         request
             .run { ProposalConfirmation(userId, declarationVersion, createdAt) }
-            .run { MerchantAccountProposal(userId, declarationVersion, createdAt, expiredAt) }
+            .run { MerchantAcceptedDeclaration(userId, declarationVersion, createdAt, expiredAt) }
             .let { proposalRepository.save(it) }
             .run { ProposalConfirmationResponse(id) }
 
