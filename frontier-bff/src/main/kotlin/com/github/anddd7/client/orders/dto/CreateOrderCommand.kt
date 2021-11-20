@@ -1,4 +1,4 @@
-package com.github.anddd7.client.dto
+package com.github.anddd7.client.orders.dto
 
         import com.fasterxml.jackson.annotation.JsonProperty
 

@@ -21,7 +21,7 @@ Method | HTTP request | Description
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import com.github.anddd7.client.dto.*
+//import com.github.anddd7.client.orders.dto.*
 
 val apiInstance = OrderControllerApi()
 try {
@@ -62,7 +62,7 @@ No authorization required
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import com.github.anddd7.client.dto.*
+//import com.github.anddd7.client.orders.dto.*
 
 val apiInstance = OrderControllerApi()
 val createOrderCommand : CreateOrderCommand =  // CreateOrderCommand | 
@@ -107,7 +107,7 @@ No authorization required
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import com.github.anddd7.client.dto.*
+//import com.github.anddd7.client.orders.dto.*
 
 val apiInstance = OrderControllerApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -152,7 +152,7 @@ No authorization required
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import com.github.anddd7.client.dto.*
+//import com.github.anddd7.client.orders.dto.*
 
 val apiInstance = OrderControllerApi()
 val path1 : kotlin.String = path1_example // kotlin.String | 
@@ -204,7 +204,7 @@ No authorization required
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import com.github.anddd7.client.dto.*
+//import com.github.anddd7.client.orders.dto.*
 
 val apiInstance = OrderControllerApi()
 val id : kotlin.String = id_example // kotlin.String | 

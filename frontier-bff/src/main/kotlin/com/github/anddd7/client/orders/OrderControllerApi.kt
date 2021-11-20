@@ -1,7 +1,7 @@
-package com.github.anddd7.client
+package com.github.anddd7.client.orders
 
-import com.github.anddd7.client.dto.CreateOrderCommand
-import com.github.anddd7.client.dto.Order
+import com.github.anddd7.client.orders.dto.CreateOrderCommand
+import com.github.anddd7.client.orders.dto.Order
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
