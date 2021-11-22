@@ -1,30 +1,31 @@
 ### Roadmap
 
-backend-service
-- biz: submit a form with multi steps, wait for apporoval and edit
-- API
-  - Excutor
-    - (Business) Validator
-    - Domain Service
-    - Domain Repo
-  - Query
-    - Store
-  - Infra/Dao (Injected implementation)
-
 frontier-bff
-- biz: authenticate users
-- biz: call multiple apis
-- biz: expose hateaos apis
-- Endpoints
-  - (Data) (Bean)Validator
-  - Routes Dispather
-  - Application Service
-    - Client
 
+- filters + routers: authentication / authorization
+- endpoints:
+    - (data) validation
+    - (data) mapping + transform
+    - expose hateaos apis
+- clients: connect with upstream(biz or domain) apis
+
+(business system) backend-merchant, backend-order
+
+- apis:
+    - (business) validation
+    - expose business api
+- service:
+    - (internal) services: handle the business logic of this context
+    - external services: the interface of the services provided by other microservices
+- storage: persist data if needed
+- infrastructure:
+    - repository: store data in db
+    - cache: store data in cache
+    - client: read/pass data to another systemß
 
 Next
-- Add 1 more backend service
-- Transaction controll between services, auto commit/rollback
+
+- Transaction control between services, auto commit/rollback
 - Deploy demo (on k8s)
-- Ready for Istio 
+- Ready for Istio
 - Testing helper

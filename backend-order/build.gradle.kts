@@ -36,7 +36,8 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
 
     /** openapi */
-    id("org.openapi.generator") version "5.3.0"
+    id("com.github.johnrengelman.processes") version "0.5.0"
+    id("org.springdoc.openapi-gradle-plugin") version "1.3.3"
 }
 
 dependencies {
@@ -47,34 +48,14 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5")
-
     /** openapi */
     implementation("org.springdoc:springdoc-openapi-ui:1.5.12")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.12")
-    implementation("org.springdoc:springdoc-openapi-hateoas:1.5.12")
 }
 
-listOf(
-    "backend-service" to "orders"
-).forEach { (subProjectName, subProjectPackage) ->
-    val taskName = "generate-$subProjectName"
-
-    // gradle plugin - https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
-    tasks.create<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>(taskName) {
-        generatorName.set("kotlin")
-        inputSpec.set("$rootDir/../$subProjectName/specs/$subProjectName.json")
-        outputDir.set("$rootDir")
-        apiPackage.set("com.github.anddd7.client.$subProjectPackage")
-        modelPackage.set("com.github.anddd7.client.$subProjectPackage.dto")
-        templateDir.set("$rootDir/src/main/resources/templates/kotlin-feign")
-
-        // kotlin config options - https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/kotlin.md
-        configOptions.put("serializationLibrary", "jackson")
-
-        // only generate models and apis
-        globalProperties.put("models", "")
-        globalProperties.put("apis", "")
-    }
-    tasks["compileKotlin"].dependsOn(taskName)
+openApi {
+    forkProperties.set("-Dspring.profiles.active=local")
+    apiDocsUrl.set("http://localhost:9090/v3/api-docs")
+    outputDir.set(file("$rootDir/specs"))
+    outputFileName.set(rootProject.name + ".json")
 }

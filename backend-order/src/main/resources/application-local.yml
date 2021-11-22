@@ -1,0 +1,11 @@
+server:
+  port: 9090
+
+spring:
+  hateoas:
+    use-hal-as-default-json-media-type: false
+
+springdoc:
+  swagger-ui:
+    operations-sorter: method
+    use-root-path: true
